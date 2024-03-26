@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Registration</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom styles */
+    body {
+      background-color: #f0f0f0; /* Background color */
+    }
+    .container {
+      background-color: white;
+      border: 2px solid;
+      border-image-slice: 1;
+      border-width: 2px;
+      border-image-source: linear-gradient(to right, #00ff00, #0000ff);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    }
+    .form-control {
+      border: 2px solid;
+      border-image-slice: 1;
+      border-width: 2px;
+      
+      border-image-source: linear-gradient(to right, #00ff00, #0000ff);
+      border-radius: 10px;
+    }
+    .form-control:focus {
+      border-color: #00ff00; /* Change focus border color */
+      box-shadow: none; /* Remove focus box shadow */
+    }
+    .btn-primary {
+      background-image: linear-gradient(to right, #00ff00, #0000ff);
+      border: none;
+      border-radius: 10px;
+    }
+    .btn-primary:hover {
+      background-image: linear-gradient(to right, #0000ff, #00ff00);
+    }
+    .gradient-bg {
+            background: linear-gradient(135deg, #4caf50, #00bcd4);
+            color: #fff;
+            padding: 15px;
+        }
+
+        .logo {
+    max-width: 100%;
+    height: auto;
+}
+  </style>
+</head>
+<body class="gradient-bg">
+    <div class="content-fluid" style="margin-top: 25px;">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-md-3">
+                </div> 
+                <div class="col-md-6">
+                    <div class="container mt-5 ">
+                        
+                        <form>
+                            <img src="assets/img/logo/logo2_footer.png" alt="logo"  class="mx-auto d-block logo">
+                          <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" id="gender" required>
+                              <option value="">Select your gender</option>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea class="form-control" id="address" rows="3" placeholder="Enter your address" required></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="medicalHistory">Medical History (if any)</label>
+                            <textarea class="form-control" id="medicalHistory" rows="3" placeholder="Enter your medical history"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                          </div>
+                          <div class="text-center">
+                          <a href="login.html"> Already Registered Click here </a>
+                          </div>
+                          <br>
+                          <button type="submit"   class="btn btn-primary mx-auto d-block">Register</button>
+                          
+                        </form>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                </div>
+                <!-- Add more achievement items as needed -->
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

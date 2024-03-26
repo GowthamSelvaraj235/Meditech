@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEDITECH | DOCTOR</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+  <style>
+     .jumbotron {
+      background: url('https://source.unsplash.com/1600x900/?doctor,future') center/cover no-repeat;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+     .notification-card {
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+     .vcall {
+      max-width: 500px;
+      margin-top: 100px;
+    }
+    .hidden {
+      display: none;
+    }
+    .card {
+      border: none;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+      .details-card {
+      display: none;
+      margin-top: 20px;
+    }
+    /* Custom styles */
+    body {
+      background-color: #f8f9fa; /* Background color */
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar {
+      background: linear-gradient(135deg, #4caf50, #00bcd4);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      z-index: 1;
+      overflow-x: hidden;
+    }
+    .sidebar ul {
+      padding: 0;
+      list-style: none;
+    }
+    .sidebar ul li {
+      padding: 15px;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ffffff;
+    }
+    .sidebar ul li a {
+        background-image: linear-gradient(135deg, #FF9800, #FFEB3B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+      text-decoration: none;
+      font-weight: 600;
+      
+    }
+    .sidebar ul li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .content {
+      transition: all 0.3s ease;
+      margin-left: 0; /* Updated */
+      padding: 20px;
+      width: 100%; /* Updated */
+    }
+    .toggle-btn {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .toggle-btn i {
+      font-size: 24px;
+      color: #ffffff;
+    }
+    .profile-img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      text-align: center;
+      line-height: 100px;
+    }
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      background-image: url('your-image-url.jpg'); /* Replace 'your-image-url.jpg' with your image URL */
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .content-panel {
+        
+    background-color: #ffffff; /* Sky blue linear gradient */
+      color: #000000;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+   .container img{
+    max-width: 150px;
+    
+   }
+    .content-panel h2.title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .form-horizontal .fieldset-title {
+      margin-top: 30px;
+    }
+    .form-horizontal .form-group {
+      margin-bottom: 20px;
+    }
+    .form-horizontal .form-group label {
+      font-weight: bold;
+    }
+    .form-horizontal .form-control {
+      border-radius: 5px;
+    }
+    .form-horizontal .btn-primary {
+      background-color: #0000FF; /* Blue color for the submit button */
+      border-color: #0000FF;
+    }
+    .form-horizontal .btn-primary:hover {
+      background-color: #000080; /* Darker shade of blue on hover */
+      border-color: #000080;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #5c6bc0, #9c27b0); /* Blue and violet linear gradient */
+      border: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #9c27b0, #5c6bc0); /* Violet and blue linear gradient on hover */
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar " id="sidebar">
+  <div class="profile-img">
+    <img src="assets/img/elements/a.jpg" alt="User Image">
+    
+  </div>
+  <ul>
+    <li class="text-center">NAME</li>
+    <li>
+      
+      <ul>
+        <li><a href="javascript:void(0)" onclick="showSection('proff')">Profile</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('Recents')">Recent Appointments</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('consultupdate')">Consult details </a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('vcard')">Vide Call </a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('Cancellation')">Cancelled Bookings</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('preupdate')">patient Prescription</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('leave')">Apply leave</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('sal')">Salary</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('notify')">Notification</a></li>
+      </ul>
+    </li>
+    </ul>
+</div>
+<!-- End Sidebar -->
+
+<!-- Toggle Button -->
+<div class="toggle-btn " onclick="toggleSidebar()">
+  <i class="fas fa-bars btn-primary"></i>
+</div>
+<!-- End Toggle Button -->
+
+<!-- Content -->
+<div id="proff" class="container ">
+    <div class="content-panel  content">
+      <h2 class="title text-center">Doctor<span class="pro-label label label-warning">Profile</span></h2>
+      <form class="form-horizontal ml-5 mr-5">
+        <fieldset class="fieldset">
+          <h3 class="fieldset-title">Personal Info</h3>
+          <div class="form-group avatar ">
+            <figure class="figure col-md-1 col-sm-2 col-xs-6">
+              <img class="img-rounded  mx-auto d-block img-responsive max-width-5" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+            </figure>
+            <div class="form-inline col-md-10 col-sm-9 col-xs-12">
+              <input type="file" class="file-uploader pull-left btn btn-primary">
+              <button type="submit" class="btn btn-sm btn-default-alt pull-left ml-5 btn-primary">Update Image</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">User ID</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Rebecca">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Rebecca">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Sanders">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Date of Birth</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="date" class="form-control" value="Sanders">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Age</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Sanders">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Gender</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <select class="form-control">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset">
+          <h3 class="fieldset-title">Contact Info</h3>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Mobile No</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="number" class="form-control" value="">
+             
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Email</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="email" class="form-control" value="">
+             
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label ">Address Line</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control " value="">
+              
+            </div>
+          </div>
+        </fieldset>
+        <hr>
+        <div class="form-group">
+          <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+            <input class="btn btn-primary" type="submit" value="Update Profile">
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+    <div class="container" id="notify">
+      <h1 class="mt-5 mb-4 text-center">Notifications</h1>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <!-- Notification Card -->
+          <div class="card notification-card">
+            <div class="card-body">
+              <h5 class="card-title">New Appointment</h5>
+              <p class="card-text">You have a new appointment scheduled for tomorrow at 10:00 AM with Dr. Smith.</p>
+              <a href="#" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+          <!-- Notification Card -->
+          <div class="card notification-card">
+            <div class="card-body">
+              <h5 class="card-title">Reminder</h5>
+              <p class="card-text">Don't forget to submit your patient reports by the end of the day.</p>
+              <a href="#" class="btn btn-primary">Submit Now</a>
+            </div>
+          </div>
+          <!-- Notification Card -->
+          <div class="card notification-card">
+            <div class="card-body">
+              <h5 class="card-title">Emergency</h5>
+              <p class="card-text">Emergency surgery scheduled in 1 hour. Please prepare accordingly.</p>
+              <a href="#" class="btn btn-primary">Take Action</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-5" id="leave">
+      <div class="row justify-content-center">
+          <div class="col-md-6">
+              <div class="leave-form">
+                  <h2 class="text-center mb-4">Apply Leave</h2>
+                  <form>
+                      <div class="form-group">
+                          <label for="doctorName">Doctor's Name</label>
+                          <input type="text" class="form-control" id="doctorName" placeholder="Enter your name">
+                      </div>
+                      <div class="form-group">
+                          <label for="leaveDate">Leave Date</label>
+                          <input type="date" class="form-control" id="leaveDate">
+                      </div>
+                      <div class="form-group">
+                          <label for="returnDate">Return Date</label>
+                          <input type="date" class="form-control" id="returnDate">
+                      </div>
+                      <div class="form-group">
+                          <label for="reason">Reason for Leave</label>
+                          <textarea class="form-control" id="reason" rows="3" placeholder="Enter reason"></textarea>
+                      </div>
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <button type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#statusModal">Status</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Status Modal -->
+  <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="statusModalLabel">Leave Application Status</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <!-- Past Applications -->
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">Past Applications</h5>
+                          <p class="card-text">Sample past application information goes here.</p>
+                      </div>
+                  </div>
+                  <!-- Additional past applications cards can be added here -->
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class=" container container-fluid" id="sal">
+    <div class="jumbotron text-center">
+      <h1 class="display-4">Doctor's Salary and Credit Details</h1>
+      <p class="lead">Explore your futuristic earnings and credit status</p>
+    </div>
+  
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-header bg-primary text-white">
+            Monthly Salary Details
+          </div>
+          <div class="card-body">
+            <p class="card-text">January Salary: $15,000</p>
+            <p class="card-text">February Salary: $15,000</p>
+            <p class="card-text">March Salary: $15,000</p>
+            <!-- Add more monthly salary details here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-header bg-success text-white">
+            Credit Details
+          </div>
+          <div class="card-body">
+            <p class="card-text">Credit Score: 800</p>
+            <p class="card-text">Credit Limit: $50,000</p>
+            <p class="card-text">Available Credit: $40,000</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#creditStatusModal">
+              Check Credit Status
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <!-- Credit Status Modal -->
+  <div class="modal fade" id="creditStatusModal" tabindex="-1" aria-labelledby="creditStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="creditStatusModalLabel">Credit Status</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Your credit has been successfully credited.</p>
+          <!-- You can display additional credit status information here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container col-md-7" id="preupdate">
+    <h1 class="mt-4 mb-4 text-center">Prescription</h1>
+    <!-- Table for Completed booking details -->
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>REG ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Mode of Attending</th>
+          <th>Status</th>
+          <th>Update Status</th>
+          <th>Prescription</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy data -->
+        <tr>
+          <td>001</td>
+          <td>John Doe</td>
+          <td>2024-03-25</td>
+          <td>10:00 AM</td>
+          <td>In-person</td>
+          <td>Completed</td>
+          
+          <td>not</td>
+          <td><button class="btn btn-primary update-btn" data-toggle="modal" data-target="#prescriptionModal">Update</button></td>
+        </tr>
+        <!-- Add more rows with dummy data if needed -->
+      </tbody>
+    </table>
+</div>
+
+<!-- Prescription Modal -->
+<div class="modal fade" id="prescriptionModal" tabindex="-1" role="dialog" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="prescriptionModalLabel">Update Prescription Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Prescription form -->
+        <form id="prescriptionForm">
+          <div class="form-group">
+            <label for="medicine">Medicine</label>
+            <select class="form-control" id="medicine" required>
+              <option value="">Select Medicine</option>
+              <option value="Medicine 1">Medicine 1</option>
+              <option value="Medicine 2">paracitaml 2</option>
+              <!-- Add more medicine options if needed -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dosage">Dosage</label>
+            <input type="text" class="form-control" id="dosage" required>
+          </div>
+          <div class="form-group">
+            <label for="frequency">Frequency</label>
+            <input type="text" class="form-control" id="frequency" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container col-md-7" id="Cancellation">
+  <h1 class="mt-4 mb-4 text-center">Prescription</h1>
+  <!-- Search Bar -->
+  <div class="form-group">
+    <input type="text" class="form-control" id="searchInput"  oninput="filter()"   placeholder="Search...">
+  </div>
+  
+  <!-- Filter Options -->
+  <div class="form-group">
+    <label for="updateStatus">Mode Of Attending:</label>
+    <select class="form-control" id="updateStatus">
+      <option value="All">All</option>
+      <option value="Sent">online</option>
+      <option value="Not Sent">offline</option>
+    </select>
+  </div>
+  
+  <div  class="form-group">
+    <label for="filterDate">Filter by Date:</label>
+    <input type="date" class="form-control" id="filterDate">
+  </div>
+  
+  
+  <!-- Table for cancelled booking details -->
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>REG ID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Mode of Attending</th>
+        <th>Notification</th>
+      </tr>
+    </thead>
+    <tbody id="bookingTableBody">
+      <!-- Dummy data -->
+      <tr>
+        <td>001</td>
+        <td>John Doe</td>
+        <td>2024-03-25</td>
+        <td>10:00 AM</td>
+        <td class="mode">online</td>
+        <td><button class="btn btn-primary update-btn" data-toggle="modal" data-target="#notiModal">Send</button></td>
+      </tr>
+      <!-- Add more rows with dummy data if needed -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Noti Modal -->
+<div class="modal fade" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="notiModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="prescriptionModalLabel">Send Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Prescription form -->
+        <form id="notiForm">
+          <div class="form-group">
+            <label for="dosage">Message</label>
+            <input type="text" class="form-control" id="dosage" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container col-md-7" id="consultupdate">
+  <h1 class="mt-4 mb-4 text-center">Prescription</h1>
+  <!-- Table for Completed booking details -->
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>REG ID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Mode of Attending</th>
+        <th>Status</th>
+        <th>Update Status</th>
+        <th>Consult</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dummy data -->
+      <tr>
+        <td>001</td>
+        <td>John Doe</td>
+        <td>2024-03-25</td>
+        <td>10:00 AM</td>
+        <td>In-person</td>
+        <td>Completed</td>
+        <td>pending</td>
+        <td><button class="btn btn-primary update-btn" data-toggle="modal" data-target="#consultupdateModal">Update</button></td>
+      </tr>
+      <!-- Add more rows with dummy data if needed -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Prescription Modal -->
+<div class="modal fade" id="consultupdateModal" tabindex="-1" role="dialog" aria-labelledby="consultupdateModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="consultupdateModalLabel">Update Consulation Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- Prescription form -->
+      <form id="ConsultupdateForm">
+      
+        <div class="form-group">
+          <label for="dosage">Reason of Symptoms:</label>
+          <input type="text" class="form-control" id="Healthissuereason" required>
+        </div>
+        <div class="form-group">
+          <label for="frequency">Advice</label>
+          <input type="text" class="form-control" id="Advice" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+<div class="container vcall" id="vcard">
+  <h2 class="text-center mb-4">Enter Video Call Meeting</h2>
+
+  <form id="VideoForm">
+      
+    <div class="form-group">
+      <label for="dosage">Enter User Name:</label>
+      <input type="text" class="form-control" id="Healthissuereason" required>
+    </div>
+    <div class="form-group">
+      <label for="frequency">Create Room Id</label>
+      <input type="text" class="form-control" id="Advice" required>
+    </div>
+    <a href="vdemo.html" class="btn-primary btn">Submit</a>
+  </form>
+</div>
+
+<div class="container" id="Recents">
+  <h1 class="mt-4 mb-4">Booking Confirmation</h1>
+  <!-- Table for booking details -->
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>REG ID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Mode of Attending</th>
+        <th>Details</th>
+        <th>Action</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dummy data -->
+      <tr>
+        <td>001</td>
+        <td>John Doe</td>
+        <td>2024-03-25</td>
+        <td>10:00 AM</td>
+        <td>In-person</td>
+        <td>
+          <button class="btn btn-primary" onclick="showDetails(1)" data-toggle="modal" data-target="#detailsModal">
+            Show Details
+          </button>
+        </td>
+        <td>
+          <select class="form-control">
+            <option>Accept</option>
+            <option>Reject</option>
+          </select>
+        </td>
+        <td>
+          <select class="form-control">
+            <option>Completed</option>
+            <option>Pending</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>001</td>
+        <td>John Doe</td>
+        <td>2024-03-25</td>
+        <td>10:00 AM</td>
+        <td>In-person</td>
+        <td>
+          <button class="btn btn-primary" onclick="showDetails(1)" data-toggle="modal" data-target="#detailsModal">
+            Show Details
+          </button>
+        </td>
+        <td>
+          <select class="form-control">
+            <option>Accept</option>
+            <option>Reject</option>
+          </select>
+        </td>
+        <td>
+          <select class="form-control">
+            <option>Completed</option>
+            <option>Pending</option>
+          </select>
+        </td>
+      </tr>
+      <!-- Add more rows with dummy data if needed -->
+    </tbody>
+  </table>
+  <!-- Bootstrap Modal for additional details -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Booking Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Reg ID:</strong> <span id="modalRegId"></span></p>
+          <p><strong>Name:</strong> <span id="modalName"></span></p>
+          <p><strong>Date:</strong> <span id="modalDate"></span></p>
+          <p><strong>Time:</strong> <span id="modalTime"></span></p>
+          <p><strong>Mode of Attending:</strong> <span id="modalMode"></span></p>
+          <p><strong>Confirm:</strong> <span id="modalConfirm"></span></p>
+          <p><strong>Patient Name:</strong> <span id="modalPatientName"></span></p>
+          <p><strong>Age:</strong> <span id="modalAge"></span></p>
+          <p><strong>Health Issue:</strong> <span id="modalHealthIssue"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--script for search-->
+<script>
+  function showDetails(regId) {
+      // Here you would fetch data from your database based on the regId
+      // For demonstration purposes, let's assume some dummy data
+      var data = {
+        name: "John Doe",
+        date: "2024-03-25",
+        time: "10:00 AM",
+        mode: "In-person",
+        confirm: "Yes",
+        patientName: "John Doe",
+        age: "35",
+        healthIssue: "Lorem ipsum dolor sit amet"
+      };
+
+      // Set details in the modal
+      document.getElementById('modalRegId').textContent = regId;
+      document.getElementById('modalName').textContent = data.name;
+      document.getElementById('modalDate').textContent = data.date;
+      document.getElementById('modalTime').textContent = data.time;
+      document.getElementById('modalMode').textContent = data.mode;
+      document.getElementById('modalConfirm').textContent = data.confirm;
+      document.getElementById('modalPatientName').textContent = data.patientName;
+      document.getElementById('modalAge').textContent = data.age;
+      document.getElementById('modalHealthIssue').textContent = data.healthIssue;
+    }
+  function filter(){
+  $(document).ready(function() {
+    // Function to filter table rows based on search input, update status, and date
+    function filterTable() {
+      var searchText = $('#searchInput').val().toLowerCase();
+      var Mode = $('#updateStatus').val();
+      var filterDate = $('#filterDate').val();
+      
+      var matchesFound = false; // Flag to track if any matches were found
+      
+      $('#bookingTableBody tr').each(function() {
+        var regId = $(this).find('td:eq(0)').text().toLowerCase();
+        var name = $(this).find('td:eq(1)').text().toLowerCase();
+        var date = $(this).find('td:eq(2)').text();
+        var status = $(this).find('.mode').text().toLowerCase(); // Convert status to lowercase for comparison
+        
+        if ((regId.includes(searchText) || name.includes(searchText)) &&
+            (Mode === 'All' || status === Mode.toLowerCase()) && // Convert Mode to lowercase for comparison
+            (filterDate === '' || date === filterDate)) {
+          $(this).show();
+          matchesFound = true; // Set flag to true if match is found
+        } else {
+          $(this).hide();
+        }
+      });
+      
+      // Show or hide the table based on matchesFound flag
+      if (matchesFound) {
+        $('#noMatchMessage').hide();
+        $('#bookingTable').show();
+      } else {
+        $('#noMatchMessage').show();
+        $('#bookingTable').hide();
+      }
+    }
+    
+    // Event listeners for input change
+    $('#searchInput, #updateStatus, #filterDate').on('input change', filterTable);
+  }); }
+</script>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    // Handle form submission
+    $("#prescriptionForm").submit(function(e){
+      e.preventDefault();
+      // Here you can add code to handle the form submission, such as sending the data to the server
+      // For demonstration purposes, let's just close the modal
+      $('#prescriptionModal').modal('hide');
+    });
+  });
+</script>
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+  
+
+  
+ 
+
+
+
+  
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+ 
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Continue Script -->
+<script>
+    // Function to toggle sidebar
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      var content = document.getElementsByClassName("content")[0];
+      if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px";
+        content.style.marginLeft = "0"; // Updated
+        content.style.width = "100%"; // Updated
+      } else {
+        sidebar.style.left = "0px";
+        content.style.marginLeft = "250px"; // Updated
+        content.style.width = "calc(100% - 250px)"; // Updated
+      }
+    }
+    
+    // Function to handle clicking on the menu items
+    function showSection(sectionId) {
+      var sections = document.querySelectorAll('.container');
+      sections.forEach(function(section) {
+        if (section.id === sectionId) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
+    
+    // Initially, show the profile section
+    showSection('proff')
+
+  </script>
+  <!-- End Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>

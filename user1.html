@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+  <style>
+     .prescription-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 50px;
+    }
+    .patient-details {
+      background-color:linear-gradient( #2196F3, #E91E63);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .prescription-info {
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+     .notification-container {
+      margin-top: 50px;
+    }
+    .notification-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .notification-card h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .notification-card p {
+      margin-bottom: 0;
+    }
+
+     .vcall {
+      max-width: 500px;
+      margin-top: 100px;
+    }
+    .hidden {
+      display: none;
+    }
+    .card {
+      border: none;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+      .details-card {
+      display: none;
+      margin-top: 20px;
+    }
+    /* Custom styles */
+    body {
+      background-color: #f8f9fa; /* Background color */
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar {
+      background: linear-gradient(135deg, #4caf50, #00bcd4);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      z-index: 1;
+      overflow-x: hidden;
+    }
+    .sidebar ul {
+      padding: 0;
+      list-style: none;
+    }
+    .sidebar ul li {
+      padding: 15px;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ffffff;
+    }
+    .sidebar ul li a {
+        background-image: linear-gradient(135deg, #FF9800, #FFEB3B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+      text-decoration: none;
+      font-weight: 600;
+      
+    }
+    .sidebar ul li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .content {
+      transition: all 0.3s ease;
+      margin-left: 0; /* Updated */
+      padding: 20px;
+      width: 100%; /* Updated */
+    }
+    .toggle-btn {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .toggle-btn i {
+      font-size: 24px;
+      color: #ffffff;
+    }
+    .profile-img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      text-align: center;
+      line-height: 100px;
+    }
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      background-image: url('your-image-url.jpg'); /* Replace 'your-image-url.jpg' with your image URL */
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .content-panel {
+        
+    background-color: #ffffff; /* Sky blue linear gradient */
+      color: #000000;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+   .container img{
+    max-width: 150px;
+    
+   }
+      .doctor-signature {
+      margin-top: 30px;
+    }
+    .content-panel h2.title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .form-horizontal .fieldset-title {
+      margin-top: 30px;
+    }
+    .form-horizontal .form-group {
+      margin-bottom: 20px;
+    }
+    .form-horizontal .form-group label {
+      font-weight: bold;
+    }
+    .form-horizontal .form-control {
+      border-radius: 5px;
+    }
+    .form-horizontal .btn-primary {
+      background-color: #0000FF; /* Blue color for the submit button */
+      border-color: #0000FF;
+    }
+    .form-horizontal .btn-primary:hover {
+      background-color: #000080; /* Darker shade of blue on hover */
+      border-color: #000080;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #5c6bc0, #9c27b0); /* Blue and violet linear gradient */
+      border: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #9c27b0, #5c6bc0); /* Violet and blue linear gradient on hover */
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar " id="sidebar">
+  <div class="profile-img">
+    <img src="assets/img/elements/a.jpg" alt="User Image">
+    
+  </div>
+  <ul>
+    <li class="text-center">NAME</li>
+    <li>
+      
+      <ul>
+        <li><a href="javascript:void(0)" onclick="showSection('prof')">Profile</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('online')">Book Appointment</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('Confirm')">Confirmation</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('Consult')">Consultation Details</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('Recent')">Recent Bookings</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('Cancell')">Cancelled Bookings</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('vcard')">Online Consultation Booking</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('prescription')">Prescription</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('video')">Health Video</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('notify')">Notification</a></li>
+      </ul>
+    </li>
+    </ul>
+</div>
+<!-- End Sidebar -->
+
+<!-- Toggle Button -->
+<div class="toggle-btn " onclick="toggleSidebar()">
+  <i class="fas fa-bars btn-primary"></i>
+</div>
+<!-- End Toggle Button -->
+
+<!-- Content -->
+<div id="prof" class="container ">
+    <div class="content-panel  content">
+      <h2 class="title">User<span class="pro-label label label-warning">Profile</span></h2>
+      <form class="form-horizontal ml-5 mr-5">
+        <fieldset class="fieldset">
+          <h3 class="fieldset-title">Personal Info</h3>
+          <div class="form-group avatar ">
+            <figure class="figure col-md-1 col-sm-2 col-xs-6">
+              <img class="img-rounded  mx-auto d-block img-responsive max-width-5" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+            </figure>
+            <div class="form-inline col-md-10 col-sm-9 col-xs-12">
+              <input type="file" class="file-uploader pull-left btn btn-primary">
+              <button type="submit" class="btn btn-sm btn-default-alt pull-left ml-5 btn-primary">Update Image</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">User ID</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Rebecca">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Rebecca">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Sanders">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Date of Birth</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="date" class="form-control" value="Sanders">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Age</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control" value="Sanders">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Gender</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <select class="form-control">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset">
+          <h3 class="fieldset-title">Contact Info</h3>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Mobile No</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="number" class="form-control" value="">
+             
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Email</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="email" class="form-control" value="">
+             
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 col-sm-3 col-xs-12 control-label ">Address Line</label>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <input type="text" class="form-control " value="">
+              
+            </div>
+          </div>
+        </fieldset>
+        <hr>
+        <div class="form-group">
+          <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+            <input class="btn btn-primary" type="submit" value="Update Profile">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!-- End Content -->
+
+<!--Content 2-->
+
+  <!--Online Booking-->
+  
+  <div  id="online"  class="container mt-5  content-panel col-md-7">
+    <div class="justify-content-center">
+    
+    <form> 
+        <h2 class="text-center" >Online Booking Form</h2>
+      <!-- Personal Information -->
+      <div class="form-group">
+        <label for="patientName">Patient Name:</label>
+        <input type="text" class="form-control" id="patientName" placeholder="Enter patient's name" required>
+      </div>
+      <div class="form-group">
+        <label for="surname">Surname:</label>
+        <input type="text" class="form-control" id="surname" placeholder="Enter patient's surname" required>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" class="form-control" id="dob" required>
+      </div>
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" class="form-control" id="age" placeholder="Enter patient's age" required>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select class="form-control" id="gender" required>
+          <option value="">Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <!-- Contact Details -->
+      <h4>Contact Details</h4>
+      <div class="form-group">
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <textarea class="form-control" id="address" rows="3" placeholder="Enter address"></textarea>
+      </div>
+      
+      <!-- Booking Details -->
+      <h4>Booking Details</h4>
+      <div class="form-group">
+        <label for="bookingDate">Booking Date:</label>
+        <input type="date" class="form-control" id="bookingDate" required>
+      </div>
+      <div class="form-group">
+        <label for="healthIssue">Health Issue:</label>
+        <textarea class="form-control" id="healthIssue" rows="3" placeholder="Enter health issue"></textarea>
+      </div>
+      
+      <!-- Previous Consultation Details -->
+      <div class="form-group">
+        <label for="previousConsultation">Have you previously attended any consultation or taken treatment?</label>
+        <select class="form-control" id="previousConsultation" onchange="showPreviousConsultationFields(this.value)">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div id="previousConsultationFields" style="display: none;">
+        <div class="form-group">
+          <label for="hospitalName">Hospital Name:</label>
+          <input type="text" class="form-control" id="hospitalName" placeholder="Enter hospital name">
+        </div>
+        <div class="form-group">
+          <label for="previousTreatment">Upload previous treatment details:</label>
+          <input type="file" class="form-control-file" id="previousTreatment">
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+  </div>
+
+<!--Confirmation page-->
+<div class="container" id="Confirm">
+    <h1 class="mt-4 mb-4">Booking Confirmation</h1>
+    <!-- Table for booking details -->
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>REG ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Mode of Attending</th>
+          <th>Confirm</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy data -->
+        <tr>
+          <td>001</td>
+          <td>John Doe</td>
+          <td>2024-03-25</td>
+          <td>10:00 AM</td>
+          <td>In-person</td>
+          <td>Yes</td>
+          <td>
+            <button class="btn btn-primary" onclick="showDetails(1)" data-toggle="modal" data-target="#detailsModal">
+              Show Details
+            </button>
+          </td>
+        </tr>
+        <tr>
+            <td>001</td>
+            <td>John Doe</td>
+            <td>2024-03-25</td>
+            <td>10:00 AM</td>
+            <td>In-person</td>
+            <td>Yes</td>
+            <td>
+              <button class="btn btn-primary" onclick="showDetails(1)" data-toggle="modal" data-target="#detailsModal">
+                Show Details
+              </button>
+            </td>
+          </tr>
+        <!-- Add more rows with dummy data if needed -->
+      </tbody>
+    </table>
+    <!-- Bootstrap Modal for additional details -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detailsModalLabel">Booking Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Reg ID:</strong> <span id="modalRegId"></span></p>
+            <p><strong>Name:</strong> <span id="modalName"></span></p>
+            <p><strong>Date:</strong> <span id="modalDate"></span></p>
+            <p><strong>Time:</strong> <span id="modalTime"></span></p>
+            <p><strong>Mode of Attending:</strong> <span id="modalMode"></span></p>
+            <p><strong>Confirm:</strong> <span id="modalConfirm"></span></p>
+            <p><strong>Patient Name:</strong> <span id="modalPatientName"></span></p>
+            <p><strong>Age:</strong> <span id="modalAge"></span></p>
+            <p><strong>Health Issue:</strong> <span id="modalHealthIssue"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Consulation Details-->
+  <div class="container" id="Consult">
+    <h1 class="mt-4 mb-4">Consultation Details</h1>
+    <!-- Table for consultation details -->
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>REG ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Mode of Attending</th>
+          <th>Status</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy data -->
+        <tr>
+          <td>001</td>
+          <td>John Doe</td>
+          <td>2024-03-25</td>
+          <td>10:00 AM</td>
+          <td>In-person</td>
+          <td>Yes</td>
+          <td>
+            <button class="btn btn-primary" onclick="showConsult(1)" data-toggle="modal" data-target="#consultModal">
+              Show Consultation Details
+            </button>
+          </td>
+        </tr>
+        <!-- Add more rows with dummy data if needed -->
+      </tbody>
+    </table>
+  
+    <!-- Bootstrap Modal for consultation details -->
+    <div class="modal fade" id="consultModal" tabindex="-1" role="dialog" aria-labelledby="consultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="consultModalLabel">Consultation Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Reason of Health Issue:</strong> <span id="modalissue"></span></p>
+            <p><strong>Tips for improve the Health:</strong> <span id="modaladvice"></span></p>
+            <h4>The Tablet and Prescription details are in Prescription Page</h4><span><a href="prescription">Click here</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--Cancell booking-->
+  <div class="container" id="Cancell">
+    <h1 class="mt-4 mb-4">Cancelled Booking Details</h1>
+    <!-- Table for cancelled booking details -->
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>REG ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Mode of Attending</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy data -->
+        <tr>
+          <td>001</td>
+          <td>John Doe</td>
+          <td>2024-03-25</td>
+          <td>10:00 AM</td>
+          <td>In-person</td>
+          <td>
+            <button class="btn btn-primary" onclick="showCancell(1)" data-toggle="modal" data-target="#cancellModal">
+              Details
+            </button>
+          </td>
+        </tr>
+        <!-- Add more rows with dummy data if needed -->
+      </tbody>
+    </table>
+  
+    <!-- Bootstrap Modal for cancelled booking details -->
+    <div class="modal fade" id="cancellModal" tabindex="-1" role="dialog" aria-labelledby="cancellModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cancellModalLabel">Cancelled Booking Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Reason of Cancellation:</strong> <span id="modalreason"></span></p>
+            <!-- You can add other relevant details here -->
+            <h4>If you want to book again</h4>
+            <span><a href="javascript:void(0)" onclick="showSection('book')">Click here</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Recent Bookings-->
+  <div class="container  col-md-7" id="Recent">
+    <h1 class="mt-4 mb-4">Recently Booked Details</h1>
+    <!-- Table for cancelled booking details -->
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>REG ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Mode of Attending</th>
+          <th>Confirm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy data -->
+        <tr>
+          <td>001</td>
+          <td>John Doe</td>
+          <td>2024-03-25</td>
+          <td>10:00 AM</td>
+          <td>In-person</td>
+          <td>Yes</td>
+        </tr>
+        <!-- Add more rows with dummy data if needed -->
+      </tbody>
+    </table>
+  </div>
+  
+  
+  <!--Health video-->
+  <div class="container mt-5" id="video">
+    <h2 class="text-center mb-4">Heart Health Improvement Videos</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <iframe class="card-img-top" src="https://www.youtube-nocookie.com/embed/220T1PGO77o" allowfullscreen></iframe>
+          <div class="card-body">
+            <h5 class="card-title">Video Title</h5>
+            <p class="card-text">Brief description of the video content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <iframe class="card-img-top" src="https://www.youtube-nocookie.com/embed/220T1PGO77o" allowfullscreen></iframe>
+          <div class="card-body">
+            <h5 class="card-title">Video Title</h5>
+            <p class="card-text">Brief description of the video content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <iframe class="card-img-top" src="https://www.youtube-nocookie.com/embed/220T1PGO77o" allowfullscreen></iframe>
+          <div class="card-body">
+            <h5 class="card-title">Video Title</h5>
+            <p class="card-text">Brief description of the video content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container vcall" id="vcard">
+    <h2 class="text-center mb-4">Enter Video Call Meeting</h2>
+
+      <div class="form-group">
+        <label for="name">Your User Name:</label>
+        <label for="unmae">Hari</label>
+      </div>
+      <div class="form-group">
+        <label for="roomLink">Room ID:</label>
+        <label for="id">5678</label>
+      </div>
+      <div class="form-group">
+        <a href="vdemo.html" class=" btn btn-primary"> Join</a>
+      </div>
+  </div>
+
+  <div class="container notification-container" id="notify">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="notification-card">
+          <h4>New Notification</h4>
+          <p><strong>Subject:</strong> Appointment Reminder</p>
+          <p><strong>Date:</strong> March 26, 2024</p>
+          <p><strong>Time:</strong> 10:00 AM</p>
+          <p><strong>Location:</strong> Room 203</p>
+          <a href="javascript:void(0)" onclick="showSection('vcard')" class="btn btn-primary">View Details</a>
+        </div>
+        <div class="notification-card">
+          <h4>New Notification</h4>
+          <p><strong>Subject:</strong> Lab Report Available</p>
+          <p><strong>Date:</strong> March 25, 2024</p>
+          <p><strong>Time:</strong> 11:30 AM</p>
+          <p><strong>Location:</strong> Online</p>
+          <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+        <div class="notification-card">
+          <h4>New Notification</h4>
+          <p><strong>Subject:</strong> Prescription Ready for Pickup</p>
+          <p><strong>Date:</strong> March 24, 2024</p>
+          <p><strong>Time:</strong> 2:00 PM</p>
+          <p><strong>Location:</strong> Pharmacy</p>
+          <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container prescription-container " id="prescription">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mb-4">Prescription</h2>
+      </div>
+    </div>
+    <div class="row patient-details">
+      <div class="col-md-6">
+        <h4>Patient Details</h4>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Age:</strong> 35</p>
+        <p><strong>Gender:</strong> Male</p>
+      </div>
+      <div class="col-md-6">
+        <h4>Doctor Details</h4>
+        <p><strong>Doctor:</strong> Dr. Jane Smith</p>
+        <p><strong>Specialization:</strong> Cardiology</p>
+        <div class="doctor-signature">
+          <img src="doctor_signature.png" alt="Doctor Signature" class="img-fluid">
+        </div>
+      </div>
+    </div>
+    <div class="row prescription-info">
+      <div class="col-md-12">
+        <h4>Prescription Information</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Medicine</th>
+              <th scope="col">Dosage</th>
+              <th scope="col">Frequency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Aspirin</td>
+              <td>100mg</td>
+              <td>Once daily</td>
+            </tr>
+            <tr>
+              <td>Metoprolol</td>
+              <td>50mg</td>
+              <td>Twice daily</td>
+            </tr>
+            <tr>
+              <td>Atorvastatin</td>
+              <td>20mg</td>
+              <td>Once daily</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ 
+
+
+
+  
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script>
+    
+    
+
+    function showPreviousConsultationFields(value) {
+      var previousConsultationFields = document.getElementById("previousConsultationFields");
+      if (value === "yes") {
+        previousConsultationFields.style.display = "block";
+      } else {
+        previousConsultationFields.style.display = "none";
+      }
+    }
+  </script>
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Continue Script -->
+<script>
+    // Function to toggle sidebar
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      var content = document.getElementsByClassName("content")[0];
+      if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px";
+        content.style.marginLeft = "0"; // Updated
+        content.style.width = "100%"; // Updated
+      } else {
+        sidebar.style.left = "0px";
+        content.style.marginLeft = "250px"; // Updated
+        content.style.width = "calc(100% - 250px)"; // Updated
+      }
+    }
+    
+    // Function to handle clicking on the menu items
+    function showSection(sectionId) {
+      var sections = document.querySelectorAll('.container');
+      sections.forEach(function(section) {
+        if (section.id === sectionId) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
+    
+    // Initially, show the profile section
+    showSection('prof')
+
+    function showDetails(regId) {
+      // Here you would fetch data from your database based on the regId
+      // For demonstration purposes, let's assume some dummy data
+      var data = {
+        name: "John Doe",
+        date: "2024-03-25",
+        time: "10:00 AM",
+        mode: "In-person",
+        confirm: "Yes",
+        patientName: "John Doe",
+        age: "35",
+        healthIssue: "Lorem ipsum dolor sit amet"
+      };
+
+      // Set details in the modal
+      document.getElementById('modalRegId').textContent = regId;
+      document.getElementById('modalName').textContent = data.name;
+      document.getElementById('modalDate').textContent = data.date;
+      document.getElementById('modalTime').textContent = data.time;
+      document.getElementById('modalMode').textContent = data.mode;
+      document.getElementById('modalConfirm').textContent = data.confirm;
+      document.getElementById('modalPatientName').textContent = data.patientName;
+      document.getElementById('modalAge').textContent = data.age;
+      document.getElementById('modalHealthIssue').textContent = data.healthIssue;
+    }
+    function showConsult(regId) {
+      // Here you would fetch data from your database based on the regId
+      // For demonstration purposes, let's assume some dummy data
+      var data = {
+        Reason: "Over oil",
+        Advice: "reduce oil",
+      };
+
+      // Set details in the modal
+      document.getElementById('modalissue').textContent = data.Reason;
+      document.getElementById('modaladvice').textContent = data.Advice;
+    }
+    function showCancell(regId) {
+      // Here you would fetch data from your database based on the regId
+      // For demonstration purposes, let's assume some dummy data
+      var data = {
+        Reason: "Not available",
+      };
+
+      // Set details in the modal
+      document.getElementById('modalreason').textContent = data.Reason;
+      
+    }
+  </script>
+  </script>
+  <!-- End Script -->
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Virtual Call</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-r4E9w02EK6Bo5Wfzr46uDYzj4o80I6Kd5bFu8lA/4ZMW2kWx2xcWfAt8Y0H1frZ8" crossorigin="anonymous">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            font-size: 18px; /* Increased font size for all elements */
+        }
+
+        .card {
+            background: linear-gradient(to bottom right, #ff758c, #ff7eb3);
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-control {
+            background: linear-gradient(to right, #f0c27b, #4b1248);
+            color: white;
+            border-color: transparent;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: linear-gradient(to right, #4b1248, #f0c27b);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            border-color: transparent;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            width: 50%; /* Adjusted width to center the button */
+            margin: 0 auto; /* Centering the button */
+            font-size: 20px; /* Increased font size for the button */
+            display: block; /* Making the button a block element */
+            margin-top: 50px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #182848, #4b6cb7);
+            border-color: transparent;
+        }
+
+        .btn-primary:focus {
+            box-shadow: 0 0 0 0.2rem rgba(75, 108, 183, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <h5 class="card-title">Join Virtual Call</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label for="roomID" class="form-label">Enter your room ID</label>
+                            <input type="text" class="form-control" id="room" placeholder="Enter your ID">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="joinVirtualCall()">Join Call</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-DX7va1osd5Jiq/ErmqJFR8kVVLSyY3XC7z+7T+fD03cdzV+1Naoe5L2y2Ow5R+Oz" crossorigin="anonymous"></script>
+    
+    <script>
+        function joinVirtualCall() {
+            var roomID = document.getElementById('room').value;
+            console.log(roomID); // Change this to the desired room ID
+            window.location.href = "vcall.html?roomID=" + roomID;
+        }
+    </script>
+</body>
+</html>
